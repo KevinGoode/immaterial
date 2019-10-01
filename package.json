@@ -2,11 +2,13 @@
   "name": "dashboard",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:4000",
   "dependencies": {
     "@material-ui/core": "^4.4.3",
     "@material-ui/icons": "^4.4.3",
     "cookie-parser": "^1.4.4",
     "morgan": "^1.9.1",
+    "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
@@ -16,8 +18,8 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start-no-backend": "react-scripts start",
-    "start": "npm run build && npm run dist-server && node ./dist-server/server.js",
+    "serve-ui": "react-scripts start &",
+    "start": "npm run serve-ui && npm run dist-server && node ./dist-server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

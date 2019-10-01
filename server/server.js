@@ -9,7 +9,7 @@ import api from './api';
 import { addNotifier, getTasks, getTask } from './data';
 import Notifier from './notifier';
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 const notifier = new Notifier();
 
@@ -47,11 +47,14 @@ const app = express()
 app.use('/api', api);
 
 // UI
+//UI is on port and the proxy field in packages.json forwards to this server. So this
+//server does not need to server up gui
+/*
 app.use('/', express.static(path.join(__dirname, '/../build')));
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(path.join(__dirname, '/../build/index.html')));
 });
-
+*/
 const server = http.createServer(app);
 server.listen(PORT);
 notifier.listen(server);

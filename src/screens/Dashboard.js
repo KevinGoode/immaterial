@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component} from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
@@ -88,6 +89,7 @@ Dashboard.defaultProps = {
 };
 
 Dashboard.propTypes = {
+  //TODO had to comment this
   dispatch: PropTypes.func.isRequired,
   error: PropTypes.object,
   tasks: PropTypes.arrayOf(PropTypes.object)

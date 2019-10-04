@@ -17,15 +17,13 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
 import { Link } from 'react-router-dom';
 import { navShow } from '../actions/nav';
 import Routes from './Routes';
 // Styling with components and materialui
 //https://codex.happyfuncorp.com/styling-and-theming-with-material-ui-react-material-design-3ba2d2f0ef25
+//Default Theme API here:
+//https://material-ui.com/customization/default-theme/
 //This code based on persistent drawer:
 //https://material-ui.com/components/drawers/
 const drawerWidth = 240;
@@ -36,6 +34,10 @@ const styles = theme => ({
   buttonArrow:{
     direction: theme.direction
   },
+menuLinks: {
+             color: "dimgray", 
+             "text-decoration": "none"},
+
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
@@ -93,6 +95,7 @@ class NavSidebar extends Component {
     super(props);
     this._show = this._show.bind(this);
   }
+
   _show(yes) {
     return ()=>{this.props.dispatch(navShow(yes))};
   }
@@ -100,11 +103,15 @@ class NavSidebar extends Component {
 
     const {classes} = this.props;
     const { nav: { items } } = this.props;
-    const links = items.map(page => (
-      <MenuItem >
-          <Divider/>
-         <Link to={page.path}>{page.label}</Link>
-        </MenuItem>
+    const links = items.map((page, key) => (
+         <Link to={page.path} className={clsx(classes.menuLinks)}>
+            <ListItem>
+              <ListItemIcon>
+                {page.icon}
+              </ListItemIcon>
+              <ListItemText primary={page.label} />
+            </ListItem>
+            </Link>
     ));
 
     return (
@@ -148,9 +155,9 @@ class NavSidebar extends Component {
           </IconButton>
         </div>
 
-        <MenuList>
+        <List>
           {links}
-        </MenuList>
+        </List>
 
       </Drawer>
       <main

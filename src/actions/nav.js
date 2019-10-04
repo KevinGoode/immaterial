@@ -1,15 +1,11 @@
+// (C) Copyright 2019 KG
 import {
-  NAV_ACTIVATE, NAV_ENABLE, NAV_RESPONSIVE
+  NAV_SHOW
 } from '../actions';
 
-export function navActivate(active) {
-  return { type: NAV_ACTIVATE, active };
+export function navShow(yesno) {
+  return { type: NAV_SHOW, show:yesno };
 }
 
-export function navEnable(enabled) {
-  return { type: NAV_ENABLE, enabled };
-}
 
-export function navResponsive(responsive) {
-  return { type: NAV_RESPONSIVE, responsive };
-}
+

@@ -22,11 +22,11 @@ import MailIcon from '@material-ui/icons/Mail';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { Link } from 'react-router-dom';
-import { navActivate } from '../actions/nav';
+import { navShow } from '../actions/nav';
 import Routes from './Routes';
 // Styling with components and materialui
 //https://codex.happyfuncorp.com/styling-and-theming-with-material-ui-react-material-design-3ba2d2f0ef25
-//This code based on persisten drawer:
+//This code based on persistent drawer:
 //https://material-ui.com/components/drawers/
 const drawerWidth = 240;
 const styles = theme => ({
@@ -91,18 +91,11 @@ const styles = theme => ({
 class NavSidebar extends Component {
   constructor(props) {
     super(props);
-    this._onClose = this._onClose.bind(this);
-    this.toggleDrawer = (openDrawer)=>{
-      return ()=>{this.setState({open: openDrawer})};
-    }
-   
-    this.state={open: false}
+    this._show = this._show.bind(this);
   }
-  
-  _onClose() {
-    this.props.dispatch(navActivate(false));
+  _show(yes) {
+    return ()=>{this.props.dispatch(navShow(yes))};
   }
-
   render() {
 
     const {classes} = this.props;
@@ -122,21 +115,21 @@ class NavSidebar extends Component {
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: this.state.open,
+          [classes.appBarShift]: this.props.nav.show,
         })}
       >
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={this.toggleDrawer(true)}
+            onClick={this._show(true)}
             edge="start"
-            className={clsx(classes.menuButton, this.state.open && classes.hide)}
+            className={clsx(classes.menuButton, this.props.nav.show && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            My-Mi-Pi - Microservice Manager for Raspberry Pi
           </Typography>
         </Toolbar>
       </AppBar>
@@ -144,13 +137,13 @@ class NavSidebar extends Component {
         className={classes.drawer}
         variant="persistent"
         anchor="left"
-        open={this.state.open}
+        open={this.props.nav.show}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
 <div className={classes.drawerHeader}>
-          <IconButton onClick={this.toggleDrawer(false)}>
+          <IconButton onClick={this._show(false)}>
             {classes.buttonArrow.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
@@ -162,7 +155,7 @@ class NavSidebar extends Component {
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: this.state.open,
+          [classes.contentShift]: this.props.nav.show,
         })}
       >  
                  <Routes/>
@@ -176,15 +169,14 @@ class NavSidebar extends Component {
 NavSidebar.defaultProps = {
   open: true,
   nav: {
-    active: true, // start with nav active
-    enabled: true, // start with nav disabled
-    responsive: 'multiple'
+    show: false, // start with nav hidden
   }
 };
 
 NavSidebar.propTypes = {
   dispatch: PropTypes.func.isRequired,
   nav: PropTypes.shape({
+    show: PropTypes.bool,
     items: PropTypes.arrayOf(PropTypes.shape({
       path: PropTypes.string,
       label: PropTypes.string
@@ -192,8 +184,10 @@ NavSidebar.propTypes = {
   })
 };
 
-const select = state => ({
-  nav: state.nav
-});
-
-export default connect(select)(withStyles(styles)(NavSidebar));
+const mapStateToProps  = state => {
+  //This is the main react-redux subscriber that gets called when there is a state change
+  //Input is state, output is props
+  return {nav: state.nav};
+};
+//Register state changer function on class NavSidebar via react-redux:connect function
+export default connect(mapStateToProps)(withStyles(styles)(NavSidebar));

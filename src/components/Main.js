@@ -2,28 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-
-
-
-
-
-
-
 import NavSidebar from './NavSidebar';
-import { navResponsive } from '../actions/nav';
+
 
 class Main extends Component {
 
 
   constructor() {
     super();
-    this._onResponsive = this._onResponsive.bind(this);
+   
     
   }
 
-  _onResponsive(responsive) {
-    this.props.dispatch(navResponsive(responsive));
-  }
+  
 
   render() {
     const {classes} = this.props;

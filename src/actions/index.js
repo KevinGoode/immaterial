@@ -16,9 +16,7 @@ export const TASK_LOAD = 'TASK_LOAD';
 export const TASK_UNLOAD = 'TASK_UNLOAD';
 
 // Nav
-export const NAV_ACTIVATE = 'NAV_ACTIVATE';
-export const NAV_ENABLE = 'NAV_ENABLE';
-export const NAV_RESPONSIVE = 'NAV_RESPONSIVE';
+export const NAV_SHOW = 'NAV_SHOW';
 
 //System
 export const SYSTEM_LOAD = 'SYSTEM_LOAD';

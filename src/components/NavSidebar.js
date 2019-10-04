@@ -17,6 +17,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import BlurOnIcon from '@material-ui/icons/BlurOn';
 import { Link } from 'react-router-dom';
 import { navShow } from '../actions/nav';
 import Routes from './Routes';
@@ -156,6 +157,14 @@ class NavSidebar extends Component {
         </div>
 
         <List>
+        <Divider/>
+            <ListItem>
+              <ListItemIcon>
+                <BlurOnIcon/>
+              </ListItemIcon>
+              <b><ListItemText primary="MyMiPi"></ListItemText></b>
+            </ListItem>
+          <Divider/>
           {links}
         </List>
 

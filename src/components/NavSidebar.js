@@ -137,7 +137,7 @@ class NavSidebar extends Component {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            My-Mi-Pi - Microservice Manager for Raspberry Pi
+            Immaterial
           </Typography>
         </Toolbar>
       </AppBar>
@@ -162,7 +162,7 @@ class NavSidebar extends Component {
               <ListItemIcon>
                 <BlurOnIcon/>
               </ListItemIcon>
-              <b><ListItemText primary="MyMiPi"></ListItemText></b>
+              <b><ListItemText primary="Immaterial"></ListItemText></b>
             </ListItem>
           <Divider/>
           {links}

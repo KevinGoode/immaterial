@@ -29,7 +29,20 @@ export const tasks = [
     status: 'Waiting'
   }
 ];
-
+const currentTime = 0;// Math.round((new Date()).getTime() / 1000);
+const activity =  [{x: currentTime-10, y: 0},{x: currentTime-9, y: 1},{x: currentTime-8, y: 3},{x: currentTime-7, y: 7},
+  {x: currentTime-6, y: 9},{x: currentTime-5, y: 10}, {x: currentTime-4, y: 7}, {x: currentTime-3, y: 3},{x: currentTime-2, y: 1},{x: currentTime-1, y: 0}]
+const taskByCategory=[
+  { x: "Continuous", y: 35 },
+  { x: "Scheduled", y: 40 },
+  { x: "One Off", y: 55 }
+];
+const activityContinuous =  [{x: currentTime-10, y: 0},{x: currentTime-9, y: 1},{x: currentTime-8, y: 1},{x: currentTime-7, y: 1},
+  {x: currentTime-6, y: 1},{x: currentTime-5, y: 1}, {x: currentTime-4, y: 1}, {x: currentTime-3, y: 0},{x: currentTime-2, y: 1},{x: currentTime-1, y: 0}]
+const activityScheduled =  [{x: currentTime-10, y: 0},{x: currentTime-9, y: 1},{x: currentTime-8, y: 1},{x: currentTime-7, y: 4},
+    {x: currentTime-6, y: 4},{x: currentTime-5, y: 6}, {x: currentTime-4, y: 4}, {x: currentTime-3, y: 1},{x: currentTime-2, y: 0},{x: currentTime-1, y: 0}]
+const activityOneOff =  [{x: currentTime-10, y: 0},{x: currentTime-9, y: 1},{x: currentTime-8, y: 3},{x: currentTime-7, y: 2},
+      {x: currentTime-6, y: 4},{x: currentTime-5, y: 3}, {x: currentTime-4, y: 2}, {x: currentTime-3, y: 0},{x: currentTime-2, y: 0},{x: currentTime-1, y: 0}]
 const increments = [5, 10, 20, 25];
 
 setInterval(
@@ -90,7 +103,21 @@ export function getTasks(filters) {
   }
   return Promise.resolve({ tasks });
 }
-
+export function getSummary(filters) {
+  if (filters) {
+    return Promise.resolve({
+      tasks: tasks.filter(task =>
+        Object.keys(filters).some(filter => task[filter] === filters[filter])
+      ),
+      activity: activity,
+      activityOneOff: activityOneOff,
+      activityContinuous:activityContinuous,
+      activityScheduled:activityScheduled,
+      taskByCategory: taskByCategory
+    });
+  }
+  return Promise.resolve({ tasks });
+}
 export function getTask(id) {
   let task;
   tasks.some((t) => {

@@ -1,5 +1,5 @@
 import express from 'express';
-import { addSession, getTasks, getTask , getSystem} from './data';
+import { addSession, getTasks, getTask , getSystem, getSummary} from './data';
 
 const router = express.Router();
 
@@ -23,6 +23,9 @@ router.get('/task', (req, res) => {
 });
 router.get('/system', (req, res) => {
   getSystem(req.query).then(system => res.json(system));
+});
+router.get('/summary', (req, res) => {
+  getSummary(req.query).then(system => res.json(system));
 });
 router.get('/task/:id', (req, res) => {
   getTask(req.params.id).then((result) => {

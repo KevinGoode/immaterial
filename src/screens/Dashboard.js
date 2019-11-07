@@ -176,7 +176,10 @@ Dashboard.propTypes = {
 Dashboard.contextTypes = {
   //intl: PropTypes.object
 };
+//This is the main react-redux subscriber that gets called when there is a state change
+//Input is state, output is props
+//NOTE THIS FUNCTION JUST RETURNS AN OBJECT OF ELEMENTS. USING {...VAR} NOTATION MEANS THAT IF VAR HAPPENS TO BE AN ARRAY
+//THEN IT IS CONVERTED TO OBJECT WITH ELEMENTS "0", "1"
+const mapStateToProps = state => ({ ...state.dashboard });
 
-const select = state => ({ ...state.dashboard });
-
-export default connect(select)(withStyles(styles)(Dashboard));
+export default connect(mapStateToProps)(withStyles(styles)(Dashboard));

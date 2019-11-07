@@ -1,0 +1,34 @@
+<script>
+    poc1();
+    function poc1() {
+        // Q: What does this line do?
+        // const select = state => ({ ...state.dashboard });
+        // A: It tries to combine two new features:
+        // i) Spread notation. This added in ES2018. It turn iterables (object/arrays) into an array of values typically used to pass to multiple argument methods
+        // ii) Shortened arrow functions return syntax: If an arrow function is simply returning a single line of code, you can omit the statement brackets and the return keyword
+        //Subtlety of what 'select' is  doing is contrasted using select2 below.
+        // IN SHORT THE{...VAR} NOTATION ENSURES WE ALWAYS GET AN OBJECT WITH ITEMS. IE If state.dashboard is an array then arrow function 'select' returns an object of array items
+        var stat = {"dashboard": {"one" : {"a": "a"}, "two": {"b":"b"}}};
+        var stat2 = {"dashboard":["one", "two"]};
+        const select = state => ({...state.dashboard}); //Note {} Means we have an object with items from dashboard
+        const select2 = state => state.dashboard;
+        const select3 = state => {return state.dashboard};
+        console.log(select(stat)); //Prints: {one: {…}, two: {…}}
+        console.log(select2(stat)); //Prints: {one: {…}, two: {…}}
+        console.log(select3(stat)); //Prints: {one: {…}, two: {…}}
+        console.log(select(stat2)); //Prints: {0: "one", 1: "two"} IE AN OBJECT WITH ITEMS INDEX LIKE AN ARRAY
+        console.log(select2(stat2)); //Prints: (2) ["one", "two"] IE AN ARRAY
+        console.log(select3(stat2)); //Prints: (2) ["one", "two"]
+
+        printArgs(select(stat2)); //Prints: {0: "one", 1: "two"}
+        printArgs(select2(stat2));//Prints: (2) ["one", "two"]
+        printArgs(select3(stat2));//Prints: (2) ["one", "two"]
+        function printArgs() {
+            //Example of a function that takes arg list
+            var i;
+            for (i = 0; i < arguments.length; i++) {
+                console.log(arguments[i])
+            }
+        }
+    }
+</script>

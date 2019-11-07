@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Dashboard from '../screens/Dashboard';
 import Tasks from '../screens/Tasks';
+import Task from '../screens/Task';
 
 /*
 import Login from '../screens/Login';
 import System from '../screens/System';
-
-import Task from '../screens/Task';
 import NotFound from '../screens/NotFound';
 */
 
@@ -26,11 +25,14 @@ class Routes extends Component {
         <Switch>
 <Route exact={true} path='/' component={Dashboard}/>} />
 <Route path='/dashboard' component={Dashboard} />/>
+{/* VERY IMPORTANT CHILD URIS (eg /tasks/:id ) NEED TO GO BEFORE PARENTS !!! (eg /tasks) */}
+<Route path='/tasks/:id' component={Task} />
 <Route path='/tasks' component={Tasks} />}/>
+
 {/*
 <Route path='/system' component={System} />
 <Route path='/login' component={Login} />
-<Route path='/tasks/:id' component={Task} />
+
 */}
 </Switch>
 
